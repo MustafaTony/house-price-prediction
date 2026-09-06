@@ -1,0 +1,508 @@
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/400-italic.css";
+@import "@fontsource/work-sans/400.css";
+@import "@fontsource/work-sans/500.css";
+@import "@fontsource/work-sans/600.css";
+
+/* ---------------------------------------------------------------------
+   Design tokens
+   "Kerb" -- a considered, honest property valuation tool.
+   Warm paper ground, ink typography, one restrained rust accent.
+   Not a SaaS dashboard: a printed valuation ledger.
+------------------------------------------------------------------------ */
+:root {
+  --color-paper: #f2ede2;
+  --color-paper-raised: #faf7f0;
+  --color-ink: #24201d;
+  --color-ink-soft: #5a5450;
+  --color-ink-faint: #8a827a;
+  --color-rust: #a8462b;
+  --color-rust-deep: #7c3220;
+  --color-line: rgba(36, 32, 29, 0.14);
+  --color-line-strong: rgba(36, 32, 29, 0.3);
+  --color-error: #8c2f1f;
+  --color-error-bg: #f6e6e1;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-ui: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 2rem;
+  --fs-2xl: 2.75rem;
+  --fs-3xl: 3.75rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --radius: 3px;
+  --max-width: 76rem;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.08;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+  max-width: 38rem;
+}
+
+a {
+  color: var(--color-rust);
+}
+
+button, input, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Layout shell
+------------------------------------------------------------------------ */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-line);
+  padding: var(--space-5) var(--space-6);
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+
+.wordmark span {
+  color: var(--color-rust);
+}
+
+.site-header__tagline {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.site-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-6) var(--space-8);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding: var(--space-5) var(--space-6);
+  font-size: var(--fs-xs);
+  color: var(--color-ink-faint);
+}
+
+.site-footer__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------------------
+   Home page: asymmetric two-column
+------------------------------------------------------------------------ */
+.home-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.home-intro {
+  position: sticky;
+  top: var(--space-7);
+}
+
+.home-intro h1 {
+  font-size: var(--fs-3xl);
+}
+
+.home-intro p {
+  margin-top: var(--space-5);
+  color: var(--color-ink-soft);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+}
+
+.home-intro__stats {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stat-line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.stat-line strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  color: var(--color-ink);
+  font-weight: 600;
+  min-width: 3ch;
+}
+
+@media (max-width: 860px) {
+  .home-intro {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-line {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Ledger form card
+------------------------------------------------------------------------ */
+.ledger {
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-line);
+  position: relative;
+  padding: var(--space-6) var(--space-6) var(--space-6) var(--space-7);
+}
+
+/* the ruler motif: a tick strip down the left edge, echoing the "measure
+   the property" idea without literal iconography */
+.ledger::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--space-5);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-line-strong) 0,
+    var(--color-line-strong) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  background-position: left top;
+  background-size: 100% 100%;
+  opacity: 0.6;
+}
+
+.ledger__heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+}
+
+.ledger__subheading {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-6);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5) var(--space-5);
+}
+
+@media (max-width: 560px) {
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field--full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  font-weight: 500;
+}
+
+.field input,
+.field select {
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-paper);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius);
+  font-size: var(--fs-base);
+  color: var(--color-ink);
+  transition: border-color 0.15s ease;
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: var(--color-ink-soft);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--color-rust);
+}
+
+.field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--color-ink-soft) 50%),
+    linear-gradient(135deg, var(--color-ink-soft) 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: var(--space-6);
+}
+
+.field--invalid input,
+.field--invalid select {
+  border-color: var(--color-error);
+}
+
+.field__error {
+  font-size: var(--fs-xs);
+  color: var(--color-error);
+}
+
+.field__hint {
+  font-size: var(--fs-xs);
+  color: var(--color-ink-faint);
+}
+
+.ledger__submit {
+  margin-top: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.btn-primary {
+  background: var(--color-rust);
+  color: var(--color-paper-raised);
+  border: 1px solid var(--color-rust);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius);
+  font-size: var(--fs-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-rust-deep);
+  border-color: var(--color-rust-deep);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-line-strong);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius);
+  font-size: var(--fs-base);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-ink);
+}
+
+.form-status {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.form-status--error {
+  color: var(--color-error);
+}
+
+/* ---------------------------------------------------------------------
+   Result page
+------------------------------------------------------------------------ */
+.result {
+  max-width: 42rem;
+}
+
+.result__label {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-3);
+}
+
+.result__price {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 9vw, 5.5rem);
+  font-weight: 500;
+  color: var(--color-rust);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  animation: reveal-price 0.5s ease-out;
+}
+
+@keyframes reveal-price {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result__recap {
+  margin-top: var(--space-6);
+  font-size: var(--fs-md);
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+.result__recap strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.result__note {
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+.result__note strong {
+  color: var(--color-ink);
+}
+
+.result__unrecognized {
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-error-bg);
+  border: 1px solid rgba(140, 47, 31, 0.25);
+  color: var(--color-error);
+  font-size: var(--fs-sm);
+  border-radius: var(--radius);
+}
+
+.result__actions {
+  margin-top: var(--space-7);
+}
+
+/* ---------------------------------------------------------------------
+   404
+------------------------------------------------------------------------ */
+.not-found__code {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 8rem);
+  font-style: italic;
+  color: var(--color-line-strong);
+  line-height: 1;
+}
+
+.not-found p {
+  margin-top: var(--space-4);
+  font-size: var(--fs-md);
+  color: var(--color-ink-soft);
+}
+
+.not-found__actions {
+  margin-top: var(--space-6);
+}

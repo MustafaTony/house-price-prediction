@@ -1,0 +1,48 @@
+# --- Environments / secrets ---
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# --- Python ---
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node / frontend ---
+node_modules/
+dist/
+frontend/dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Real dataset (not committed -- see README for download instructions) ---
+data/house_prices.csv
+
+# --- NOTE on the trained model ---
+# models/house_price.pkl (28.48 MB) is intentionally NOT ignored: the
+# project guide permits committing the model when it's under 50MB, and
+# committing it here lets the backend/frontend run without retraining.
